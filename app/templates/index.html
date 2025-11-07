@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Онлайн короткие нарды</title>
+    <link rel="stylesheet" href="{{ url_for('static', path='styles.css') }}">
+</head>
+<body>
+    <header class="top-bar">
+        <h1>Онлайн короткие нарды</h1>
+        <p class="subtitle">Создайте комнату, приглашайте друга и играйте прямо в браузере.</p>
+    </header>
+
+    <main>
+        <section id="setup" class="panel-grid">
+            <div class="panel">
+                <h2>Новая партия</h2>
+                <form id="create-form" class="form-grid">
+                    <label for="create-name">Ваше имя</label>
+                    <input id="create-name" name="name" type="text" maxlength="40" placeholder="Игрок 1" required>
+                    <button type="submit">Создать комнату</button>
+                </form>
+            </div>
+            <div class="panel">
+                <h2>Присоединиться</h2>
+                <form id="join-form" class="form-grid">
+                    <label for="join-name">Ваше имя</label>
+                    <input id="join-name" name="name" type="text" maxlength="40" placeholder="Игрок">
+                    <label for="join-code">ID партии</label>
+                    <input id="join-code" name="code" type="text" placeholder="Введите код комнаты" required>
+                    <button type="submit">Войти</button>
+                </form>
+            </div>
+            <div class="panel info">
+                <h2>Как играть</h2>
+                <ul>
+                    <li>Создайте комнату и отправьте ID партии другу.</li>
+                    <li>Бросайте кости, кликайте по своим шашкам и пунктам для перемещения.</li>
+                    <li>Выводите шашки на бар, бейте соперника и снимайте их домой.</li>
+                    <li>Побеждает тот, кто первым снимет все 15 шашек.</li>
+                </ul>
+            </div>
+        </section>
+
+        <section id="game-area" class="hidden">
+            <div class="game-header">
+                <div>
+                    <h2>Партия <span id="game-id"></span></h2>
+                    <p id="role-label"></p>
+                </div>
+                <div class="actions">
+                    <button id="copy-link" type="button">Скопировать ссылку</button>
+                    <button id="leave-btn" type="button">Выйти в меню</button>
+                </div>
+            </div>
+
+            <div class="board-section">
+                <div id="board-container">
+                    <div id="board-top" class="board-row top"></div>
+                    <div id="board-bottom" class="board-row bottom"></div>
+                    <div id="bar-column">
+                        <div class="bar-slot top" data-bar="black"></div>
+                        <div class="bar-slot bottom" data-bar="white"></div>
+                    </div>
+                </div>
+                <div id="bearoff-column">
+                    <div class="bearoff" data-color="black">
+                        <h3>Снято (чёрные)</h3>
+                        <div class="bearoff-stack" id="bearoff-black"></div>
+                    </div>
+                    <div class="bearoff" data-color="white">
+                        <h3>Снято (белые)</h3>
+                        <div class="bearoff-stack" id="bearoff-white"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="status-bar">
+                <div class="status-block">
+                    <h3>Игроки</h3>
+                    <ul id="players-list"></ul>
+                    <p id="spectators"></p>
+                </div>
+                <div class="status-block dice">
+                    <h3>Кости</h3>
+                    <div id="dice-values"></div>
+                    <button id="roll-btn" type="button">Бросить кости</button>
+                    <button id="pass-btn" type="button">Пас</button>
+                </div>
+                <div class="status-block info">
+                    <h3>Статус</h3>
+                    <p id="turn-indicator"></p>
+                    <p id="message"></p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>Сделано для игры друзей онлайн. Поддерживаются ПК и планшеты.</p>
+    </footer>
+
+    <script type="module" src="{{ url_for('static', path='app.js') }}"></script>
+</body>
+</html>
