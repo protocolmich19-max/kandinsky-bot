@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Короткие нарды онлайн</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}" />
+  </head>
+  <body>
+    <div class="page">
+      <header class="page__header">
+        <h1>Короткие нарды</h1>
+        <p class="tagline">Создайте комнату, пригласите друга и сыграйте онлайн</p>
+      </header>
+
+      <section class="setup" id="setup">
+        <form class="panel" id="create-form">
+          <h2>Новая партия</h2>
+          <label class="field">
+            <span>Ваше имя</span>
+            <input type="text" name="nickname" placeholder="Игрок" maxlength="20" />
+          </label>
+          <button type="submit" class="btn primary">Создать комнату</button>
+        </form>
+
+        <form class="panel" id="join-form">
+          <h2>Подключиться</h2>
+          <label class="field">
+            <span>ID комнаты</span>
+            <input type="text" name="gameId" placeholder="например, 4F8A1C" maxlength="6" />
+          </label>
+          <label class="field">
+            <span>Ваше имя</span>
+            <input type="text" name="nickname" placeholder="Игрок" maxlength="20" />
+          </label>
+          <button type="submit" class="btn secondary">Войти</button>
+        </form>
+      </section>
+
+      <section class="game" id="game" hidden>
+        <div class="game__sidebar">
+          <div class="panel">
+            <h2>Комната</h2>
+            <p>Код: <strong id="game-code">—</strong></p>
+            <p>Вы играете за: <strong id="player-color">—</strong></p>
+            <p class="status" id="game-status"></p>
+            <div class="dice" id="dice"></div>
+            <div class="actions">
+              <button id="roll" class="btn primary">Бросить кости</button>
+              <button id="end-turn" class="btn secondary">Ход завершён</button>
+            </div>
+          </div>
+          <div class="panel">
+            <h2>Игроки</h2>
+            <ul class="players" id="players"></ul>
+          </div>
+          <div class="panel">
+            <h2>Выброшено</h2>
+            <div class="borne-off">
+              <div>
+                <span class="checker white"></span>
+                <strong id="white-borne">0</strong>
+              </div>
+              <div>
+                <span class="checker black"></span>
+                <strong id="black-borne">0</strong>
+              </div>
+            </div>
+          </div>
+          <div class="panel">
+            <h2>Бар</h2>
+            <div class="bar-area">
+              <div class="bar-stack" id="bar-white" data-source="bar" data-color="white"></div>
+              <div class="bar-stack" id="bar-black" data-source="bar" data-color="black"></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="game__board">
+          <div class="board-wrapper">
+            <div class="off-zone top" id="off-black" data-color="black">
+              <span>Снять фишку</span>
+            </div>
+            <div class="board" id="board">
+              <div class="board-row top" id="top-row"></div>
+              <div class="board-divider"></div>
+              <div class="board-row bottom" id="bottom-row"></div>
+            </div>
+            <div class="off-zone bottom" id="off-white" data-color="white">
+              <span>Снять фишку</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <footer class="page__footer">
+        <p>
+          Правила: каждый ход бросайте кости, делайте допустимые перемещения фишек и выводите их из дома.
+          Побеждает тот, кто первым снял все 15 фишек.
+        </p>
+      </footer>
+    </div>
+
+    <script src="https://cdn.socket.io/4.7.5/socket.io.min.js" crossorigin="anonymous"></script>
+    <script src="{{ url_for('static', filename='js/app.js') }}" defer></script>
+  </body>
+</html>
